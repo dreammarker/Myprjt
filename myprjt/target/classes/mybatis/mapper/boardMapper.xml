@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.yedam.web.board.BoardDAO">
+
+	<select id="getBoard" parameterType="string" resultType="com.yedam.web.board.BoardVO">
+		SELECT seq, title, writer, content, regdate, cnt 
+		FROM board
+		WHERE seq = #{seq}
+	</select>
+
+	<select id="getBoardList" resultType="map">
+		SELECT seq, title, writer, content, regdate, cnt 
+		 FROM board
+	</select>
+
+	<insert id="insertBoard">
+	<selectKey keyProperty="seq" resultType="string" order="BEFORE">
+		select max(seq)+1 from board
+	</selectKey>
+	insert into board(seq,title,content,writer,regdate,cnt) 
+	values (#{seq}, #{title}, #{content}, #{writer},
+			trunc(sysdate),0)
+	</insert>
+	
+	
+
+</mapper>

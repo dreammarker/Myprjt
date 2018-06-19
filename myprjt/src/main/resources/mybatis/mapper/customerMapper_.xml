@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+  <mapper namespace="com.yedam.web.board.CustomerDAO">
+
+	<insert id="insertCustomer" parameterType="customerVO" statementType="CALLABLE">
+			{call INSERT_CUSTOMER(#{cust_name},#{cust_id},
+			#{cust_pwd},#{cust_phone},#{cust_mail},#{cust_birth})} 		
+	</insert>
+	
+	<update id="updateCustomer" parameterType="customerVO">
+		 	UPDATE CUSTOMER 
+		 	SET  CUST_NAME=#{cust_name}, 
+		 	CUST_PWD = #{cust_pwd} , 
+		 	CUST_PHONE = #{cust_phone}, 
+		 	CUST_MAIL = #{cust_mail}
+		 	WHERE CUST_ID = #{cust_id}  
+	</update>
+
+	<delete id="deleteCustomer" parameterType="customerVO" statementType="CALLABLE">
+				{call DELETE_CUSTOMER(#{cust_num})};
+	</delete>
+	
+	<select id="getCustomer" parameterType="customerVO">
+	SELECT CUST_NUM, CUST_NAME, CUST_ID, CUST_PWD, CUST_PHONE, CUST_MAIL, CUST_BIRTH, STAMP, MILAGE
+	FROM CUSTOMER WHERE CUST_ID = #{cust_id}
+	</select>
+	
+	</mapper>
+	

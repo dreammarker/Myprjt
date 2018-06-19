@@ -1,0 +1,96 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.yedam.web.emp.EmpDAO">
+	<!-- 전체 조회 -->
+<!-- 	<resultMap type="empVO" id="empResult">
+	<id property="employeeId" column="EMPLOYEE_ID"/>
+	<id property="firstName" column="FIRST_NAME"/>
+	<id property="lastName" column="LAST_NAME"/>
+	<id property="salary" column="SALARY"/>
+	</resultMap> -->
+<!--  	<resultMap type="map" id="empResult2">
+	<id property="employeeId" column="EMPLOYEE_ID"/>
+	<id property="firstName" column="FIRST_NAME"/>
+	<id property="lastName" column="LAST_NAME"/>
+	<id property="salary" column="SALARY"/> 
+	</resultMap> -->
+	<select id="getEmpList" resultType="map" parameterType="empVO">
+		SELECT	EMPLOYEE_ID  as "employeeId",
+				FIRST_NAME as "firstName",
+				LAST_NAME as "lastName",
+				SALARY as "salary",
+				(SELECT DEPARTMENT_NAME
+				 FROM  HR.DEPARTMENTS DEPT
+				 WHERE DEPT.DEPARTMENT_ID = EMP.DEPARTMENT_ID) as "deptName"
+		  FROM  HR.EMPLOYEES EMP
+		  <where>
+		  <if test="departmentId != null and departmentId !=''">
+		  EMP.DEPARTMENT_ID = #{departmentId} 
+		  </if>
+		    <if test="firstName != null and firstName != ''">
+		    AND FIRST_NAME LIKE '%' || upper(#{firstName}) || '%'
+		    </if>
+		</where>
+		 ORDER  BY EMPLOYEE_ID
+	</select>
+
+		<select id="getEmp" parameterType="string" resultType="empVO">
+		<![CDATA[
+		SELECT	EMPLOYEE_ID,
+				FIRST_NAME,
+				LAST_NAME,
+				SALARY,
+				JOB_ID
+		  FROM  HR.EMPLOYEES  
+		 WHERE EMPLOYEE_ID = #{id} 	
+		]]>
+	</select>
+
+	<insert id="insertEmp" parameterType="empVO">
+	<selectKey keyProperty="employeeId" resultType="string" 
+			   order="BEFORE">
+		SELECT MAX(HR.EMPLOYEE_ID)+1 FROM HR.EMPLOYEES
+	</selectKey>
+	
+		INSERT INTO HR.EMPLOYEES (
+		EMPLOYEE_ID, 
+		FIRST_NAME,
+		LAST_NAME,
+		EMAIL,
+		HIRE_DATE,
+		JOB_ID
+		)
+		VALUES(
+		#{employeeId},
+		#{firstName},
+		#{lastName},
+		#{email},
+		#{hireDate},
+		#{jobId}
+		)
+	</insert>
+	
+	<update id="updateEmp" parameterType="empVO">
+	UPDATE HR.EMPLOYEES SET
+		   FIRST_NAME = #{firstName},
+		   LAST_NAME = #{lastName},
+		   EMAIL = #{email},
+		   JOB_ID = #{jobId}
+	WHERE EMPLOYEE_ID = #{employeeId}
+	</update>
+	
+	<delete id="deleteEmp" parameterType="string">
+		DELETE HR.EMPLOYEES
+		WHERE EMPLOYEE_ID = #{id}
+	</delete>
+	<!-- 부서 다건 삭제 -->
+	<delete id="deleteDeptList">
+		DELETE FROM HR.DEPARTMENTS
+		WHERE DEPARTMENT_ID IN
+		<foreach collection="list" item="item" open="(" close=")" separator=",">
+		#{item}
+		</foreach>
+	</delete>
+</mapper>
