@@ -14,8 +14,8 @@ public class EmpDAO {
 	
 	@Autowired SqlSessionTemplate mybatis;
 	//쓰레드처리 ,커넥션관리 기능 추가 
-	public List<Map<String,Object>> getEmpList(EmpVO empVO){
-		return mybatis.selectList("com.yedam.web.emp.EmpDAO.getEmpList",empVO);
+	public List<Map<String,Object>> getEmpList(){
+		return mybatis.selectList("com.yedam.web.emp.EmpDAO.getEmpList");
 	}
 	
 	public EmpVO getEmp(String id) {

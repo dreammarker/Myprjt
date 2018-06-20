@@ -34,7 +34,7 @@ public class EmpClientSpring {
 			EmpVO empVO = new EmpVO();
 			empVO.setDepartmentId("20");
 			empVO.setFirstName("m");
-			List<Map<String,Object>> list = empDAO.getEmpList(empVO);
+			List<Map<String,Object>> list = empDAO.getEmpList();
 			System.out.println("조회건수:"+list.size());
 			System.out.println(list);
 	}

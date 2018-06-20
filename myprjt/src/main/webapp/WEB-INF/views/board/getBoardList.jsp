@@ -21,7 +21,7 @@
 	<a href="insertBoardForm">게시글등록하기</a>
 	<c:forEach items="${boardList}" var="board">
 		<div style="border: 1px solid blue;">
-			seq:<a href="updateBoardForm?seq=${board.SEQ}">${board.SEQ}</a><br>
+			seq:<a href="getBoard/${board.SEQ}">${board.SEQ}</a><br>
 			title:${board.TITLE}<br>
 			writer:${board.WRITER}<br>
 			content:${board.CONTENT}<br>
