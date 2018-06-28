@@ -18,4 +18,10 @@ public class EmpServiceImpl implements EmpService {
 		return dao.getEmpList();
 	}
 
+	@Override
+	public List<Map<String, Object>> getDeptCnt() {
+		return dao.getDeptCnt();
+	}
+	
+	
 }

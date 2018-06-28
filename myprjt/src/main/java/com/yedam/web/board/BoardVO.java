@@ -1,5 +1,7 @@
 package com.yedam.web.board;
 
+import org.springframework.web.multipart.MultipartFile;
+
 public class BoardVO {
 	private String seq;
 	private String title;
@@ -9,6 +11,17 @@ public class BoardVO {
 	private int cnt;
 	private String searchKeyword;
 	private String searchCondition;
+	
+	private String uploadfile; //db에 저장될 파일명
+	
+	public MultipartFile getTempuploadfile() {
+		return tempuploadfile;
+	}
+	public void setTempuploadfile(MultipartFile tempuploadfile) {
+		this.tempuploadfile = tempuploadfile;
+	}
+	MultipartFile tempuploadfile; //임시 업로드 파일
+	
 	public String getSeq() {
 		return seq;
 	}
@@ -62,6 +75,12 @@ public class BoardVO {
 		return "BoardVO [seq=" + seq + ", title=" + title + ", writer=" + writer + ", content=" + content + ", regDate="
 				+ regDate + ", cnt=" + cnt + ", searchKeyword=" + searchKeyword + ", searchCondition=" + searchCondition
 				+ "]";
+	}
+	public String getUploadfile() {
+		return uploadfile;
+	}
+	public void setUploadfile(String uploadfile) {
+		this.uploadfile = uploadfile;
 	}
 	
 	

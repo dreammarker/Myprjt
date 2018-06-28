@@ -5,23 +5,28 @@
 <mapper namespace="com.yedam.web.board.BoardDAO">
 
 	<select id="getBoard" parameterType="string" resultType="com.yedam.web.board.BoardVO">
-		SELECT seq, title, writer, content, regdate, cnt 
+		SELECT seq, title, writer, content, regdate, cnt ,uploadfile
 		FROM board
-		WHERE seq = #{seq}
+		WHERE seq = #{seqs}
 	</select>
 
 	<select id="getBoardList" resultType="map">
-		SELECT seq, title, writer, content, regdate, cnt 
+		SELECT a.* from ( select rownum rn , b.* from( 
+		SELECT seq, title, writer, content, regdate, cnt ,uploadfile
 		 FROM board
+		 ) b ) a where rn between #{first} and #{last}
 	</select>
 
+	<select id="getCount" resultType="int">
+		select count(*) from board
+	</select>
 	<insert id="insertBoard">
 	<selectKey keyProperty="seq" resultType="string" order="BEFORE">
 		select max(seq)+1 from board
 	</selectKey>
-	insert into board(seq,title,content,writer,regdate,cnt) 
+	insert into board(seq,title,content,writer,regdate,cnt<if test="uploadfile!=null and uploadfile!=''">,uploadfile</if>) 
 	values (#{seq}, #{title}, #{content}, #{writer},
-			trunc(sysdate),0)
+			trunc(sysdate),0,#{uploadfile})
 	</insert>
 	
 	

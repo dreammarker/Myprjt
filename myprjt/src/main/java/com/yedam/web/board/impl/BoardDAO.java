@@ -7,6 +7,8 @@ import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
+import com.yedam.web.board.BoardSearchVO;
+import com.yedam.web.board.BoardService;
 import com.yedam.web.board.BoardVO;
 
 @Repository
@@ -16,10 +18,15 @@ public class BoardDAO {
 	SqlSessionTemplate mybatis;
 	
 	// 목록조회
-		public List<Map<String, Object>> getBoardList() {
-			return mybatis.selectList("com.yedam.web.board.BoardDAO.getBoardList");
+		public List<Map<String, Object>> getBoardList(BoardSearchVO vo) {
+			return mybatis.selectList("com.yedam.web.board.BoardDAO.getBoardList",vo);
 		};
 
+		//전체레코드 건수 조회
+		public int getCount(BoardSearchVO vo) {
+			return mybatis.selectOne("com.yedam.web.board.BoardDAO.getCount",vo);
+		}
+		
 		public List<BoardVO> getBoardList2(BoardVO vo) {
 			System.out.println(vo);
 			return mybatis.selectList("com.yedam.web.board.BoardDAO.getBoardList2", vo);
@@ -44,6 +51,8 @@ public class BoardDAO {
 		public void deleteBoard(String seqs) {
 			mybatis.delete("com.yedam.web.board.BoardDAO.deleteBoard", seqs);
 		}
+
+		
 
 		
 }

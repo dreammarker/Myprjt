@@ -6,6 +6,7 @@ import java.util.Map;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.yedam.web.board.BoardSearchVO;
 import com.yedam.web.board.BoardService;
 import com.yedam.web.board.BoardVO;
 
@@ -16,8 +17,8 @@ public class BoardServiceImpl implements BoardService{
 	BoardDAO dao;
 	
 	@Override
-	public List<Map<String, Object>> getBoardList() {
-		return dao.getBoardList();
+	public List<Map<String, Object>> getBoardList(BoardSearchVO vo) {
+		return dao.getBoardList(vo);
 	}
 
 	@Override
@@ -45,5 +46,12 @@ public class BoardServiceImpl implements BoardService{
 		// TODO Auto-generated method stub
 		
 	}
+
+	@Override
+	public int getCount(BoardSearchVO vo) {
+		return dao.getCount(vo);
+	}
+
+	
 
 }

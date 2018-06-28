@@ -1,0 +1,171 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="empDeptReport" language="groovy" pageWidth="595" pageHeight="842" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" isTitleNewPage="true" uuid="9dc2d59c-eea2-4b5d-889c-f4ca801b73d3">
+	<property name="ireport.zoom" value="1.3310000000000004"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="0"/>
+	<queryString>
+		<![CDATA[select e.*, d.department_name
+ from employees e, departments d
+  where e.department_id = d.department_id
+  order by employee_id]]>
+	</queryString>
+	<field name="EMPLOYEE_ID" class="java.math.BigDecimal"/>
+	<field name="FIRST_NAME" class="java.lang.String"/>
+	<field name="LAST_NAME" class="java.lang.String"/>
+	<field name="EMAIL" class="java.lang.String"/>
+	<field name="PHONE_NUMBER" class="java.lang.String"/>
+	<field name="HIRE_DATE" class="java.sql.Timestamp"/>
+	<field name="JOB_ID" class="java.lang.String"/>
+	<field name="SALARY" class="java.math.BigDecimal"/>
+	<field name="COMMISSION_PCT" class="java.math.BigDecimal"/>
+	<field name="MANAGER_ID" class="java.math.BigDecimal"/>
+	<field name="DEPARTMENT_ID" class="java.math.BigDecimal"/>
+	<field name="DEPARTMENT_NAME" class="java.lang.String"/>
+	<variable name="DEPARTMENT_NAME_1" class="java.lang.Integer" resetType="Group" resetGroup="DEPARTMENT_NAME" calculation="Count">
+		<variableExpression><![CDATA[$F{DEPARTMENT_NAME}]]></variableExpression>
+	</variable>
+	<group name="DEPARTMENT_NAME">
+		<groupExpression><![CDATA[$F{DEPARTMENT_NAME}]]></groupExpression>
+		<groupHeader>
+			<band height="50">
+				<textField>
+					<reportElement x="0" y="15" width="111" height="20" uuid="6a44ee25-a43a-416e-bda9-43878e52e343"/>
+					<textFieldExpression><![CDATA[$F{DEPARTMENT_NAME}]]></textFieldExpression>
+				</textField>
+				<textField evaluationTime="Group" evaluationGroup="DEPARTMENT_NAME">
+					<reportElement x="111" y="15" width="100" height="20" uuid="e142929b-de41-42ec-9bd0-241d48886b67"/>
+					<textFieldExpression><![CDATA[$V{DEPARTMENT_NAME_1}]]></textFieldExpression>
+				</textField>
+			</band>
+		</groupHeader>
+		<groupFooter>
+			<band height="50"/>
+		</groupFooter>
+	</group>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<title>
+		<band height="122" splitType="Stretch">
+			<staticText>
+				<reportElement x="187" y="40" width="180" height="61" uuid="046d9102-8e0d-403f-ab72-d7d55fc14318"/>
+				<box>
+					<pen lineWidth="1.0"/>
+					<topPen lineWidth="1.0"/>
+					<leftPen lineWidth="1.0"/>
+					<bottomPen lineWidth="1.0"/>
+					<rightPen lineWidth="1.0"/>
+				</box>
+				<textElement textAlignment="Center">
+					<font size="30" isUnderline="true"/>
+				</textElement>
+				<text><![CDATA[emp list]]></text>
+			</staticText>
+			<image>
+				<reportElement x="422" y="22" width="75" height="79" uuid="4f5aa18e-ff4c-4432-96dc-72e0216628fc"/>
+				<imageExpression><![CDATA["C:\\Users\\User\\git\\Myprjt\\myprjt\\src\\main\\webapp\\reports\\cherry.jpg"]]></imageExpression>
+			</image>
+		</band>
+	</title>
+	<pageHeader>
+		<band height="35" splitType="Stretch">
+			<textField>
+				<reportElement x="75" y="0" width="100" height="20" uuid="cfa97717-5dac-4133-9f7b-96c8e83055ab"/>
+				<textFieldExpression><![CDATA[$V{REPORT_COUNT}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="175" y="0" width="100" height="20" uuid="3b787e66-b0ba-4495-a72c-e1651a8f914e"/>
+				<textFieldExpression><![CDATA[$V{PAGE_NUMBER}]]></textFieldExpression>
+			</textField>
+		</band>
+	</pageHeader>
+	<columnHeader>
+		<band height="61" splitType="Stretch">
+			<staticText>
+				<reportElement x="0" y="41" width="111" height="20" uuid="e146fde5-2682-4a77-bd2a-6f0c90639276"/>
+				<box>
+					<pen lineWidth="1.0"/>
+					<topPen lineWidth="1.0"/>
+					<leftPen lineWidth="1.0"/>
+					<bottomPen lineWidth="1.0"/>
+					<rightPen lineWidth="1.0"/>
+				</box>
+				<textElement textAlignment="Center"/>
+				<text><![CDATA[EMPLOYEE_ID]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="111" y="41" width="100" height="20" uuid="81e9290b-cfcf-4c95-9820-8cab46a5751e"/>
+				<box>
+					<pen lineWidth="0.5" lineColor="#FF33FF"/>
+					<topPen lineWidth="0.5" lineColor="#FF33FF"/>
+					<leftPen lineWidth="0.5" lineColor="#FF33FF"/>
+					<bottomPen lineWidth="0.5" lineColor="#FF33FF"/>
+					<rightPen lineWidth="0.5" lineColor="#FF33FF"/>
+				</box>
+				<textElement textAlignment="Center"/>
+				<text><![CDATA[name]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="211" y="41" width="84" height="20" uuid="a2c21f98-dbc9-47fa-94f5-e5b7d5b8f84b"/>
+				<text><![CDATA[SALARY]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="295" y="41" width="259" height="20" uuid="35edbbbe-d977-4b06-beff-3677476a0031"/>
+				<text><![CDATA[EMAIL]]></text>
+			</staticText>
+		</band>
+	</columnHeader>
+	<detail>
+		<band height="21" splitType="Stretch">
+			<textField>
+				<reportElement x="0" y="0" width="111" height="20" uuid="464b5fd1-68e7-4d4d-b0d9-3fb70f5b84ef"/>
+				<box>
+					<pen lineWidth="1.0"/>
+					<topPen lineWidth="1.0"/>
+					<leftPen lineWidth="1.0"/>
+					<bottomPen lineWidth="1.0"/>
+					<rightPen lineWidth="1.0"/>
+				</box>
+				<textElement textAlignment="Center"/>
+				<textFieldExpression><![CDATA[$F{EMPLOYEE_ID}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="111" y="0" width="100" height="20" uuid="75e05f2d-1fbd-4dcc-9a7e-2c8a9be960a1"/>
+				<box>
+					<pen lineWidth="0.5" lineColor="#FF33FF"/>
+					<topPen lineWidth="0.5" lineColor="#FF33FF"/>
+					<leftPen lineWidth="0.5" lineColor="#FF33FF"/>
+					<bottomPen lineWidth="0.5" lineColor="#FF33FF"/>
+					<rightPen lineWidth="0.5" lineColor="#FF33FF"/>
+				</box>
+				<textFieldExpression><![CDATA["  "+$F{FIRST_NAME}+"  "+$F{LAST_NAME}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="211" y="0" width="84" height="20" uuid="2951f6fb-d948-456a-8d18-c8d6bdbb8ee1"/>
+				<textFieldExpression><![CDATA[$F{SALARY}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="295" y="0" width="259" height="20" uuid="cfe15289-acbc-4a4f-9896-10454742d6c7"/>
+				<textFieldExpression><![CDATA[$F{EMAIL}]]></textFieldExpression>
+			</textField>
+		</band>
+	</detail>
+	<columnFooter>
+		<band height="17" splitType="Stretch"/>
+	</columnFooter>
+	<pageFooter>
+		<band height="19" splitType="Stretch"/>
+	</pageFooter>
+	<summary>
+		<band height="42" splitType="Stretch">
+			<staticText>
+				<reportElement x="0" y="22" width="100" height="20" uuid="98bba462-8e4f-4377-acd5-afb160ee28d8"/>
+				<text><![CDATA[전체건수]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="100" y="22" width="100" height="20" uuid="6fd6100d-317f-45cb-9034-a8677e848634"/>
+				<textFieldExpression><![CDATA[$V{REPORT_COUNT}]]></textFieldExpression>
+			</textField>
+		</band>
+	</summary>
+</jasperReport>

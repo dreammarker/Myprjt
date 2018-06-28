@@ -21,6 +21,7 @@
 				FIRST_NAME as "firstName",
 				LAST_NAME as "lastName",
 				SALARY as "salary",
+				EMAIL  as "email",
 				(SELECT DEPARTMENT_NAME
 				 FROM  HR.DEPARTMENTS DEPT
 				 WHERE DEPT.DEPARTMENT_ID = EMP.DEPARTMENT_ID) as "deptName"
@@ -93,4 +94,13 @@
 		#{item}
 		</foreach>
 	</delete>
+	
+	<!-- 부서별 인원수 -->
+	<select id="getDeptCnt" resultType="map">
+		SELECT DEPARTMENT_NAME as "department_name",
+			   COUNT(EMPLOYEE_ID) AS "cnt"
+			   FROM HR.EMPLOYEES E, HR.DEPARTMENTS D
+			   WHERE E.DEPARTMENT_ID = D.DEPARTMENT_ID
+			   GROUP BY DEPARTMENT_NAME
+	</select>
 </mapper>

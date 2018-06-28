@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+	<%@taglib uri="http://www.springframework.org/tags" prefix="spring"%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -11,7 +12,7 @@ $(function(){
 	function getCommentsList()
 	{
 		var requestData = {"boardSeq":"${board.seq}"};
-		$.ajax({
+		/* $.ajax({
 			url : "../getCommentsList",
 			data : requestData,
 			dataType : 'json',
@@ -22,7 +23,24 @@ $(function(){
 					$("#commentList").append(html);
 				}
 			}
+		}); */
+		$.ajax({
+			url : "../getCommentsXml",
+			data : requestData,
+			dataType : 'xml',
+			success : function(data){
+				var commentList =$(data).find("comment");
+				for(i=0;i<commentList.length;i++){
+					var name= $(commentList[i]).find("name").html();
+					var content= $(commentList[i]).find("content").html();
+					var seq = $(commentList[i]).attr("seq");
+					var html = '<div class="article" id="'+
+					seq+'">'+name+content+'</div>'
+					$("#commentList").append(html);
+				}
+			}
 		});
+		
 	}
 	$("#btnCommentAdd").click(function(){
 		var requestData = {"name": $("[name=name]").val(), 
@@ -47,11 +65,12 @@ $(function(){
 </head>
 <body>
 등록후 확인<br>
-${boardVO}
 <hr>
-	제목: ${board.title} <br>
-	작성자: ${board.writer}<br>
-	내용: ${board.content}<br>
+${vo.seq} 
+	제목: ${vo.title} <br>
+	작성자: ${vo.writer}<br>
+	내용: ${vo.content}<br>
+	첨부파일 : <a href="${pageContext.request.contextPath}/downloadBoard?seq=${vo.seq}">${vo.uploadfile}</a><br>
 	<a href="../updateBoard">수정</a>
 	
 	<hr>

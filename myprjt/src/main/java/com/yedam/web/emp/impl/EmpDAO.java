@@ -35,5 +35,8 @@ public class EmpDAO {
 	public void deleteDeptList(List<String> list) {
 		mybatis.delete("com.yedam.web.emp.EmpDAO.deleteDeptList",list);
 	}
-	
+	//부서별 인원수
+	public List<Map<String,Object>> getDeptCnt(){
+		return mybatis.selectList("com.yedam.web.emp.EmpDAO.getDeptCnt");
+	}
 }
