@@ -4,9 +4,10 @@
 <!DOCTYPE html>
 <html><head><title>emp/getEmpList.jsp</title></head>
 <body>
+<a href="./empExcelView">엑셀뷰출력</a>
 <c:forEach items="${empList}" var="emp">
-	${emp.EMPLOYEE_ID}   ${emp.FIRST_NAME}  
-	${emp.LAST_NAME} ${emp.SALARY} <br>
+	${emp.employeeId}   ${emp.firstName}  
+	${emp.lastName} ${emp.Salary} <br>
 </c:forEach>
 </body>
 </html>

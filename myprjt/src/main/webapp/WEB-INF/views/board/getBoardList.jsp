@@ -10,6 +10,7 @@
 </head>
 <body>
 
+	<a href="./empExcelCreate">엑셀출력</a>
    <a href="insertBoardForm">버튼</a>
 
    <h3>제목이올시다</h3>
